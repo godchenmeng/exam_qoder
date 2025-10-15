@@ -1,0 +1,17 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs
+/ExamSystem.Domain/obj
+/ExamSystem.Infrastructure/obj
+/ExamSystem.Repository/obj
+/ExamSystem.Services/obj
+/ExamSystem.Tests/obj
+/ExamSystem.UI/obj
+/ExamSystem.ViewModels/obj
+/ExamSystem.Domain/bin/Debug/net5.0
+/ExamSystem.Infrastructure/bin/Debug/net5.0
+/ExamSystem.Repository/bin/Debug/net5.0
+/ExamSystem.Services/bin/Debug/net5.0
+/ExamSystem.Tests/bin/Debug/net5.0
