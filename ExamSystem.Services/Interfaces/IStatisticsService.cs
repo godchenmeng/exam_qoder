@@ -41,10 +41,6 @@ namespace ExamSystem.Services.Interfaces
         /// </summary>
         Task<SystemStatistics> GetSystemStatisticsAsync();
 
-        /// <summary>
-        /// 获取考试统计数据
-        /// </summary>
-        Task<ExamStatistics> GetExamStatisticsAsync();
     }
 
     /// <summary>
