@@ -56,6 +56,11 @@ namespace ExamSystem.Services.Interfaces
         /// </summary>
         Task RecordAbnormalBehaviorAsync(int recordId, string behavior);
         
+        /// <summary>
+        /// 根据考试记录ID获取答题记录列表
+        /// </summary>
+        Task<IEnumerable<AnswerRecord>> GetAnswerRecordsAsync(int recordId);
+        
       
     }
 

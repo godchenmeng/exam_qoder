@@ -18,15 +18,24 @@ namespace ExamSystem.Services.Implementations
         private readonly IExamRecordRepository _examRecordRepository;
         private readonly IAnswerRecordRepository _answerRecordRepository;
         private readonly IQuestionRepository _questionRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IQuestionBankRepository _questionBankRepository;
+        private readonly IExamPaperRepository _examPaperRepository;
 
         public StatisticsService(
             IExamRecordRepository examRecordRepository,
             IAnswerRecordRepository answerRecordRepository,
-            IQuestionRepository questionRepository)
+            IQuestionRepository questionRepository,
+            IUserRepository userRepository,
+            IQuestionBankRepository questionBankRepository,
+            IExamPaperRepository examPaperRepository)
         {
             _examRecordRepository = examRecordRepository ?? throw new ArgumentNullException(nameof(examRecordRepository));
             _answerRecordRepository = answerRecordRepository ?? throw new ArgumentNullException(nameof(answerRecordRepository));
             _questionRepository = questionRepository ?? throw new ArgumentNullException(nameof(questionRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _questionBankRepository = questionBankRepository ?? throw new ArgumentNullException(nameof(questionBankRepository));
+            _examPaperRepository = examPaperRepository ?? throw new ArgumentNullException(nameof(examPaperRepository));
         }
 
         /// <summary>
@@ -252,6 +261,30 @@ namespace ExamSystem.Services.Implementations
             return wrongQuestionsDict.Values
                 .OrderByDescending(w => w.WrongCount)
                 .ToList();
+        }
+
+        /// <summary>
+        /// 获取系统统计数据
+        /// </summary>
+        public async Task<SystemStatistics> GetSystemStatisticsAsync()
+        {
+            // 获取各类统计数据
+            var users = await _userRepository.GetAllAsync();
+            var banks = await _questionBankRepository.GetAllAsync();
+            var questions = await _questionRepository.GetAllAsync();
+            var papers = await _examPaperRepository.GetAllAsync();
+            var examRecords = await _examRecordRepository.GetAllAsync();
+
+            var statistics = new SystemStatistics
+            {
+                TotalUsers = users.Count(),
+                TotalQuestionBanks = banks.Count(),
+                TotalQuestions = questions.Count(),
+                TotalExamPapers = papers.Count(),
+                TotalExams = examRecords.Count()
+            };
+
+            return statistics;
         }
     }
 }

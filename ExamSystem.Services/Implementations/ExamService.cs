@@ -326,5 +326,13 @@ namespace ExamSystem.Services.Implementations
             await _examRecordRepository.UpdateAsync(record);
             await _examRecordRepository.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// 根据考试记录ID获取答题记录列表
+        /// </summary>
+        public async Task<IEnumerable<AnswerRecord>> GetAnswerRecordsAsync(int recordId)
+        {
+            return await _answerRecordRepository.GetByExamRecordAsync(recordId);
+        }
     }
 }

@@ -17,13 +17,16 @@ namespace ExamSystem.Services.Implementations
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly IRepository<Option> _optionRepository;
+        private readonly IQuestionBankRepository _questionBankRepository;
 
         public QuestionService(
             IQuestionRepository questionRepository,
-            IRepository<Option> optionRepository)
+            IRepository<Option> optionRepository,
+            IQuestionBankRepository questionBankRepository)
         {
             _questionRepository = questionRepository ?? throw new ArgumentNullException(nameof(questionRepository));
             _optionRepository = optionRepository ?? throw new ArgumentNullException(nameof(optionRepository));
+            _questionBankRepository = questionBankRepository ?? throw new ArgumentNullException(nameof(questionBankRepository));
         }
 
         public async Task<Question> GetQuestionByIdAsync(int questionId)
@@ -262,6 +265,24 @@ namespace ExamSystem.Services.Implementations
         public async Task<Question> GetQuestionWithOptionsAsync(int questionId)
         {
             return await _questionRepository.GetWithOptionsAsync(questionId);
+        }
+
+        /// <summary>
+        /// 获取所有题库列表
+        /// </summary>
+        public async Task<IEnumerable<QuestionBank>> GetAllQuestionBanksAsync()
+        {
+            // 获取所有题库
+            return await _questionBankRepository.GetAllAsync();
+        }
+
+        /// <summary>
+        /// 根据题库ID获取题目列表（分页）
+        /// </summary>
+        public async Task<PagedResult<Question>> GetQuestionsByBankIdAsync(int bankId, int pageIndex, int pageSize)
+        {
+            return await _questionRepository.SearchQuestionsAsync(
+                bankId, null, null, null, pageIndex, pageSize);
         }
     }
 }

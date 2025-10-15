@@ -235,5 +235,35 @@ namespace ExamSystem.Services.Implementations
         {
             return await _userRepository.UsernameExistsAsync(username);
         }
+
+        /// <summary>
+        /// 分页获取用户列表
+        /// </summary>
+        public async Task<PagedResult<User>> GetUsersAsync(int pageIndex, int pageSize)
+        {
+            // 获取所有用户
+            var allUsers = await _userRepository.GetAllAsync();
+            var userList = allUsers.ToList();
+            
+            // 计算分页信息
+            var totalCount = userList.Count;
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+            
+            // 应用分页
+            var items = userList
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+            
+            // 返回分页结果
+            return new PagedResult<User>
+            {
+                Items = items,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages
+            };
+        }
     }
 }
