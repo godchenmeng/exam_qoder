@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
-using ExamSystem.UI.Services;
+using ExamSystem.Abstractions.Services;
 
 namespace ExamSystem.ViewModels
 {

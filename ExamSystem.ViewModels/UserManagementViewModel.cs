@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using ExamSystem.Domain.Entities;
 using ExamSystem.Domain.Enums;
 using ExamSystem.Services.Interfaces;
-using ExamSystem.UI.Services;
+using ExamSystem.Abstractions.Services;
 
 namespace ExamSystem.ViewModels
 {

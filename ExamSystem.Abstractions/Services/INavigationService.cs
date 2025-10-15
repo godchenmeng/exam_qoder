@@ -1,7 +1,7 @@
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace ExamSystem.UI.Services
+namespace ExamSystem.Abstractions.Services
 {
     /// <summary>
     /// 导航服务接口

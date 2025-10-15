@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamSystem.UI", "ExamSystem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamSystem.Tests", "ExamSystem.Tests\ExamSystem.Tests.csproj", "{01F2BDC3-98BA-42BB-942F-22397B6E3350}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamSystem.Abstractions", "ExamSystem.Abstractions\ExamSystem.Abstractions.csproj", "{CD61C837-383B-4C3C-9977-66CF0086EE83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,5 +116,17 @@ Global
 		{01F2BDC3-98BA-42BB-942F-22397B6E3350}.Release|x64.Build.0 = Release|Any CPU
 		{01F2BDC3-98BA-42BB-942F-22397B6E3350}.Release|x86.ActiveCfg = Release|Any CPU
 		{01F2BDC3-98BA-42BB-942F-22397B6E3350}.Release|x86.Build.0 = Release|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Debug|x64.Build.0 = Debug|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Debug|x86.Build.0 = Debug|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Release|x64.ActiveCfg = Release|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Release|x64.Build.0 = Release|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Release|x86.ActiveCfg = Release|Any CPU
+		{CD61C837-383B-4C3C-9977-66CF0086EE83}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

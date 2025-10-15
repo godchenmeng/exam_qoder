@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
+using ExamSystem.Abstractions.Services;
 
 namespace ExamSystem.UI.Services
 {
@@ -31,6 +32,14 @@ namespace ExamSystem.UI.Services
             return Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 MessageBox.Show(error, title, MessageBoxButton.OK, MessageBoxImage.Error);
+            }).Task;
+        }
+
+        public Task ShowWarningAsync(string title, string warning)
+        {
+            return Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                MessageBox.Show(warning, title, MessageBoxButton.OK, MessageBoxImage.Warning);
             }).Task;
         }
 

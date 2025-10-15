@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using ExamSystem.UI.Services;
+using ExamSystem.Abstractions.Services;
 using ExamSystem.ViewModels;
 using ExamSystem.Services.Interfaces;
 using ExamSystem.Services.Implementations;

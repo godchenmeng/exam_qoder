@@ -1,4 +1,4 @@
-namespace ExamSystem.UI.Services
+namespace ExamSystem.Abstractions.Services
 {
     /// <summary>
     /// 通知服务接口
@@ -9,6 +9,11 @@ namespace ExamSystem.UI.Services
         /// 显示成功提示
         /// </summary>
         void ShowSuccess(string message);
+
+        /// <summary>
+        /// 显示成功提示（带持续时间）
+        /// </summary>
+        void ShowSuccess(string message, int durationSeconds);
 
         /// <summary>
         /// 显示警告提示

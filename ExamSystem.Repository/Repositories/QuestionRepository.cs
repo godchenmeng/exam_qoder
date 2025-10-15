@@ -97,5 +97,33 @@ namespace ExamSystem.Repository.Repositories
                 .Include("Options")
                 .ToListAsync();
         }
+
+        /// <summary>
+        /// 根据题库ID、题型和难度获取题目列表（用于随机组卷）
+        /// </summary>
+        /// <param name="bankId">题库ID</param>
+        /// <param name="questionType">题型（可选）</param>
+        /// <param name="difficulty">难度（可选）</param>
+        /// <returns>符合条件的题目集合</returns>
+        public async Task<IEnumerable<Question>> GetQuestionsByBankAndTypeAsync(
+            int bankId,
+            QuestionType? questionType = null,
+            Difficulty? difficulty = null)
+        {
+            var query = _dbSet.Where(q => q.BankId == bankId);
+
+            // 应用题型筛选
+            if (questionType.HasValue)
+                query = query.Where(q => q.QuestionType == questionType.Value);
+
+            // 应用难度筛选
+            if (difficulty.HasValue)
+                query = query.Where(q => q.Difficulty == difficulty.Value);
+
+            // 按创建时间降序排列
+            return await query
+                .OrderByDescending(q => q.CreatedAt)
+                .ToListAsync();
+        }
     }
 }

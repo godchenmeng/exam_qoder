@@ -17,11 +17,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ExamSystem.Infrastructure\ExamSystem.Infrastructure.csproj" />
     <ProjectReference Include="..\ExamSystem.Domain\ExamSystem.Domain.csproj" />
+    <ProjectReference Include="..\ExamSystem.Repository\ExamSystem.Repository.csproj" />
   </ItemGroup>
 
 </Project>
