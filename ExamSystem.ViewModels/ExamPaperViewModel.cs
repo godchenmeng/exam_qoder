@@ -99,7 +99,7 @@ namespace ExamSystem.ViewModels
             IsLoading = true;
             try
             {
-                var papers = await _examPaperService.GetAllExamPapersAsync();
+                var papers = await _examPaperService.GetExamPapersAsync(StatusFilter, TypeFilter, SearchKeyword);
                 ExamPapers = new ObservableCollection<ExamPaper>(papers);
             }
             catch (System.Exception ex)
@@ -120,12 +120,12 @@ namespace ExamSystem.ViewModels
         {
             if (SelectedPaper == null) return;
 
-            var confirmed = await _dialogService.ShowConfirmAsync("确认删除", $"确定要删除试卷 {SelectedPaper.Title} 吗？");
+            var confirmed = await _dialogService.ShowConfirmAsync("确认删除", $"确定要删除试卷 {SelectedPaper.Name} 吗？");
             if (!confirmed) return;
 
             try
             {
-                await _examPaperService.DeleteExamPaperAsync(SelectedPaper.Id);
+                await _examPaperService.DeleteExamPaperAsync(SelectedPaper.PaperId);
                 _notificationService.ShowSuccess("试卷删除成功");
                 await LoadExamPapersAsync();
             }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ExamSystem.Domain.Entities;
 using ExamSystem.Domain.DTOs;
+using ExamSystem.Domain.Enums;
 
 namespace ExamSystem.Services.Interfaces
 {
@@ -41,9 +42,31 @@ namespace ExamSystem.Services.Interfaces
         Task UpdatePaperAsync(ExamPaper paper);
 
         /// <summary>
+        /// 获取所有试卷列表
+        /// </summary>
+        /// <returns>所有试卷集合，按创建时间倒序排列</returns>
+        Task<List<ExamPaper>> GetAllExamPapersAsync();
+
+        /// <summary>
+        /// 根据条件筛选试卷列表
+        /// </summary>
+        /// <param name="status">试卷状态过滤器（可选）</param>
+        /// <param name="type">试卷类型过滤器（可选）</param>
+        /// <param name="keyword">关键词搜索（可选，模糊匹配名称和描述）</param>
+        /// <returns>符合条件的试卷集合</returns>
+        Task<List<ExamPaper>> GetExamPapersAsync(PaperStatus? status, PaperType? type, string? keyword);
+
+        /// <summary>
         /// 删除试卷
         /// </summary>
+        /// <param name="paperId">试卷ID</param>
         Task DeletePaperAsync(int paperId);
+
+        /// <summary>
+        /// 删除试卷（别名方法，保持兼容性）
+        /// </summary>
+        /// <param name="paperId">试卷ID</param>
+        Task DeleteExamPaperAsync(int paperId);
 
         /// <summary>
         /// 激活试卷

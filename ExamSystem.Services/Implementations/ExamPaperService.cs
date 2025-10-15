@@ -191,6 +191,59 @@ namespace ExamSystem.Services.Implementations
         }
 
         /// <summary>
+        /// 获取所有试卷列表
+        /// </summary>
+        public async Task<List<ExamPaper>> GetAllExamPapersAsync()
+        {
+            var papers = await _paperRepository.GetAllAsync();
+            return papers.OrderByDescending(p => p.CreatedAt).ToList();
+        }
+
+        /// <summary>
+        /// 根据条件筛选试卷列表
+        /// </summary>
+        public async Task<List<ExamPaper>> GetExamPapersAsync(PaperStatus? status, PaperType? type, string? keyword)
+        {
+            // 验证关键词长度
+            if (!string.IsNullOrEmpty(keyword) && keyword.Length > 100)
+                throw new ArgumentException("搜索关键词长度不能超过100个字符", nameof(keyword));
+
+            var allPapers = await _paperRepository.GetAllAsync();
+            var query = allPapers.AsQueryable();
+
+            // 应用状态筛选
+            if (status.HasValue)
+            {
+                query = query.Where(p => p.Status == status.Value);
+            }
+
+            // 应用类型筛选
+            if (type.HasValue)
+            {
+                query = query.Where(p => p.PaperType == type.Value);
+            }
+
+            // 应用关键词搜索
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                query = query.Where(p => 
+                    (p.Name != null && p.Name.Contains(keyword)) || 
+                    (p.Description != null && p.Description.Contains(keyword)));
+            }
+
+            // 按创建时间倒序排列
+            return query.OrderByDescending(p => p.CreatedAt).ToList();
+        }
+
+        /// <summary>
+        /// 删除试卷（别名方法，保持兼容性）
+        /// </summary>
+        public async Task DeleteExamPaperAsync(int paperId)
+        {
+            await DeletePaperAsync(paperId);
+        }
+
+        /// <summary>
         /// 获取试卷详情
         /// </summary>
         public async Task<ExamPaper> GetPaperWithQuestionsAsync(int paperId)
