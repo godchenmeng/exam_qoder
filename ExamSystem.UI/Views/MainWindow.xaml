@@ -1,0 +1,102 @@
+<Window x:Class="ExamSystem.UI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="{Binding Title}" 
+        Height="768" 
+        Width="1280"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="{StaticResource BackgroundBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 顶部标题栏 -->
+        <Border Grid.Row="0" 
+                Grid.ColumnSpan="2"
+                Background="{StaticResource PrimaryBrush}"
+                Effect="{StaticResource {x:Static materialDesign:ShadowAssist.ShadowDepth2}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 菜单切换按钮 -->
+                <Button Grid.Column="0"
+                       Style="{StaticResource IconButton}"
+                       Command="{Binding ToggleMenuCommand}"
+                       Margin="10,0">
+                    <materialDesign:PackIcon Kind="Menu" 
+                                           Width="24" 
+                                           Height="24"
+                                           Foreground="White"/>
+                </Button>
+
+                <!-- 系统标题 -->
+                <TextBlock Grid.Column="1"
+                          Text="{Binding Title}"
+                          FontSize="{StaticResource FontSizeLarge}"
+                          FontWeight="{StaticResource FontWeightMedium}"
+                          Foreground="White"
+                          VerticalAlignment="Center"/>
+
+                <!-- 用户信息和退出 -->
+                <StackPanel Grid.Column="2" 
+                           Orientation="Horizontal"
+                           Margin="10,0">
+                    <TextBlock Text="{Binding CurrentUser.RealName}"
+                              Foreground="White"
+                              VerticalAlignment="Center"
+                              Margin="0,0,10,0"/>
+                    <Button Content="退出"
+                           Style="{StaticResource SecondaryButton}"
+                           Command="{Binding LogoutCommand}"
+                           Foreground="White"
+                           BorderBrush="White"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 左侧导航菜单 -->
+        <Border Grid.Row="1" 
+                Grid.Column="0"
+                Background="{StaticResource SurfaceBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,1,0">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Width" Value="220"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMenuExpanded}" Value="False">
+                            <Setter Property="Width" Value="60"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="NavigationMenu" Margin="0,10">
+                    <!-- 菜单项将在代码后台根据用户角色动态生成 -->
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- 右侧内容区域 -->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <ContentControl Content="{Binding CurrentViewModel}">
+                <ContentControl.Resources>
+                    <!-- 这里可以添加DataTemplate来映射ViewModel到View -->
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
+    </Grid>
+</Window>

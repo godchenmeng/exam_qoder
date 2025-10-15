@@ -1,0 +1,204 @@
+<UserControl x:Class="ExamSystem.UI.Views.SystemSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- 页面标题 -->
+            <TextBlock Grid.Row="0"
+                      Text="系统设置"
+                      FontSize="{StaticResource FontSizeXLarge}"
+                      FontWeight="{StaticResource FontWeightBold}"
+                      Margin="0,0,0,20"/>
+
+            <!-- 数据库设置 -->
+            <Border Grid.Row="1" 
+                    Style="{StaticResource CardBorder}"
+                    Margin="0,0,0,15">
+                <StackPanel>
+                    <TextBlock Text="数据库设置"
+                              FontSize="{StaticResource FontSizeLarge}"
+                              FontWeight="{StaticResource FontWeightMedium}"
+                              Margin="0,0,0,15"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                  Text="数据库路径："
+                                  VerticalAlignment="Center"
+                                  Margin="0,0,0,15"/>
+                        <TextBox Grid.Row="0" Grid.Column="1"
+                                Style="{StaticResource StandardTextBox}"
+                                Text="{Binding DatabasePath}"
+                                IsReadOnly="True"
+                                Margin="0,0,0,15"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                  Text="数据库操作："
+                                  VerticalAlignment="Top"
+                                  Margin="0,5,0,0"/>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <Button Content="备份数据库"
+                                   Style="{StaticResource PrimaryButton}"
+                                   Command="{Binding BackupDatabaseCommand}"
+                                   Margin="0,0,10,0"/>
+                            <Button Content="恢复数据库"
+                                   Style="{StaticResource SecondaryButton}"
+                                   Command="{Binding RestoreDatabaseCommand}"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- 考试默认设置 -->
+            <Border Grid.Row="2" 
+                    Style="{StaticResource CardBorder}"
+                    Margin="0,0,0,15">
+                <StackPanel>
+                    <TextBlock Text="考试默认设置"
+                              FontSize="{StaticResource FontSizeLarge}"
+                              FontWeight="{StaticResource FontWeightMedium}"
+                              Margin="0,0,0,15"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                  Text="默认考试时长："
+                                  VerticalAlignment="Center"
+                                  Margin="0,0,0,15"/>
+                        <TextBox Grid.Row="0" Grid.Column="1"
+                                Style="{StaticResource StandardTextBox}"
+                                Text="{Binding DefaultExamDuration}"
+                                Margin="0,0,0,15"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2"
+                                  Text="分钟"
+                                  VerticalAlignment="Center"
+                                  Margin="10,0,0,15"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                  Text="及格分数："
+                                  VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1"
+                                Style="{StaticResource StandardTextBox}"
+                                Text="{Binding PassingScore}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2"
+                                  Text="分"
+                                  VerticalAlignment="Center"
+                                  Margin="10,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- 安全设置 -->
+            <Border Grid.Row="3" 
+                    Style="{StaticResource CardBorder}"
+                    Margin="0,0,0,15">
+                <StackPanel>
+                    <TextBlock Text="安全设置"
+                              FontSize="{StaticResource FontSizeLarge}"
+                              FontWeight="{StaticResource FontWeightMedium}"
+                              Margin="0,0,0,15"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                  Text="会话超时："
+                                  VerticalAlignment="Center"
+                                  Margin="0,0,0,15"/>
+                        <TextBox Grid.Row="0" Grid.Column="1"
+                                Style="{StaticResource StandardTextBox}"
+                                Text="{Binding SessionTimeout}"
+                                Margin="0,0,0,15"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2"
+                                  Text="分钟"
+                                  VerticalAlignment="Center"
+                                  Margin="10,0,0,15"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                  Text="最小密码长度："
+                                  VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1"
+                                Style="{StaticResource StandardTextBox}"
+                                Text="{Binding MinPasswordLength}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2"
+                                  Text="字符"
+                                  VerticalAlignment="Center"
+                                  Margin="10,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- 日志设置 -->
+            <Border Grid.Row="4" 
+                    Style="{StaticResource CardBorder}">
+                <StackPanel>
+                    <TextBlock Text="日志设置"
+                              FontSize="{StaticResource FontSizeLarge}"
+                              FontWeight="{StaticResource FontWeightMedium}"
+                              Margin="0,0,0,15"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                  Text="日志保留天数："
+                                  VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1"
+                                Style="{StaticResource StandardTextBox}"
+                                Text="{Binding LogRetentionDays}"/>
+                        <TextBlock Grid.Column="2"
+                                  Text="天"
+                                  VerticalAlignment="Center"
+                                  Margin="10,0,0,0"/>
+                    </Grid>
+
+                    <!-- 保存按钮 -->
+                    <Button Content="保存设置"
+                           Style="{StaticResource PrimaryButton}"
+                           Command="{Binding SaveSettingsCommand}"
+                           HorizontalAlignment="Left"
+                           Margin="0,20,0,0"
+                           Width="150"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
