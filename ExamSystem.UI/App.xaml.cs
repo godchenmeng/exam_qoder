@@ -98,6 +98,9 @@ namespace ExamSystem.UI
             services.AddSingleton<IDialogService, DialogService>();
             services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<IFileDialogService, FileDialogService>();
+            
+            // 注册定时器服务
+            services.AddTransient<ITimerService, DispatcherTimerService>();
 
             // 注册ViewModels
             services.AddTransient<LoginViewModel>();

@@ -37,6 +37,11 @@ namespace ExamSystem.Services.Interfaces
         Task<List<PaperQuestion>> GetPaperQuestionsAsync(int paperId);
 
         /// <summary>
+        /// 获取试卷的所有题目
+        /// </summary>
+        Task<IEnumerable<Question>> GetExamQuestionsAsync(int paperId);
+
+        /// <summary>
         /// 更新试卷
         /// </summary>
         Task UpdatePaperAsync(ExamPaper paper);

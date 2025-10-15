@@ -263,6 +263,17 @@ namespace ExamSystem.Services.Implementations
         }
 
         /// <summary>
+        /// 获取试卷的所有题目
+        /// </summary>
+        public async Task<IEnumerable<Question>> GetExamQuestionsAsync(int paperId)
+        {
+            var paperQuestions = await _paperQuestionRepository.FindAsync(pq => pq.PaperId == paperId);
+            var questionIds = paperQuestions.Select(pq => pq.QuestionId).ToList();
+            var questions = await _questionRepository.GetManyWithOptionsAsync(questionIds);
+            return questions.OrderBy(q => questionIds.IndexOf(q.QuestionId));
+        }
+
+        /// <summary>
         /// 更新试卷
         /// </summary>
         public async Task UpdatePaperAsync(ExamPaper paper)

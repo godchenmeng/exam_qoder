@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.Input;
 using ExamSystem.Domain.Entities;
 using ExamSystem.Services.Interfaces;
 using ExamSystem.Abstractions.Services;
+using ExamSystem.Repository.Interfaces;
 
 namespace ExamSystem.ViewModels
 {
@@ -17,10 +18,12 @@ namespace ExamSystem.ViewModels
     public class ExamTakingViewModel : ObservableObject
     {
         private readonly IExamService _examService;
+        private readonly IExamPaperService _examPaperService;  // 新增
+        private readonly IAnswerRecordRepository _answerRecordRepository;  // 新增
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
-        private DispatcherTimer? _autoSaveTimer;
-        private DispatcherTimer? _countdownTimer;
+        private readonly ITimerService _autoSaveTimer;
+        private readonly ITimerService _countdownTimer;
 
         private ExamRecord? _examRecord;
         public ExamRecord? ExamRecord
@@ -92,12 +95,24 @@ namespace ExamSystem.ViewModels
 
         public ExamTakingViewModel(
             IExamService examService,
+            IExamPaperService examPaperService,  // 新增
+            IAnswerRecordRepository answerRecordRepository,  // 新增
             IDialogService dialogService,
-            INavigationService navigationService)
+            INavigationService navigationService,
+            ITimerService autoSaveTimer,
+            ITimerService countdownTimer)
         {
             _examService = examService;
+            _examPaperService = examPaperService;  // 新增
+            _answerRecordRepository = answerRecordRepository;  // 新增
             _dialogService = dialogService;
             _navigationService = navigationService;
+            _autoSaveTimer = autoSaveTimer;
+            _countdownTimer = countdownTimer;
+            
+            // 订阅定时器事件
+            _autoSaveTimer.Tick += async (s, e) => await SaveAnswersAsync();
+            _countdownTimer.Tick += CountdownTimer_Tick;
         }
 
         public void Initialize(ExamRecord examRecord)
@@ -113,11 +128,11 @@ namespace ExamSystem.ViewModels
             {
                 if (ExamRecord?.ExamPaper == null) return;
 
-                var questions = await _examService.GetExamQuestionsAsync(ExamRecord.ExamPaperId);
+                var questions = await _examPaperService.GetExamQuestionsAsync(ExamRecord.ExamPaperId);
                 Questions = new ObservableCollection<Question>(questions);
                 
                 // 加载已保存的答案
-                var savedAnswers = await _examService.GetSavedAnswersAsync(ExamRecord.Id);
+                var savedAnswers = await _answerRecordRepository.GetByExamRecordAsync(ExamRecord.Id);
                 Answers = savedAnswers.ToDictionary(a => a.QuestionId, a => a.Answer);
             }
             catch (Exception ex)
@@ -129,20 +144,10 @@ namespace ExamSystem.ViewModels
         private void StartTimers()
         {
             // 自动保存定时器（每分钟）
-            _autoSaveTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMinutes(1)
-            };
-            _autoSaveTimer.Tick += async (s, e) => await SaveAnswersAsync();
-            _autoSaveTimer.Start();
+            _autoSaveTimer.Start(TimeSpan.FromMinutes(1));
 
             // 倒计时定时器
-            _countdownTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(1)
-            };
-            _countdownTimer.Tick += CountdownTimer_Tick;
-            _countdownTimer.Start();
+            _countdownTimer.Start(TimeSpan.FromSeconds(1));
         }
 
         private void CountdownTimer_Tick(object? sender, EventArgs e)
@@ -153,7 +158,7 @@ namespace ExamSystem.ViewModels
             }
             else
             {
-                _countdownTimer?.Stop();
+                _countdownTimer.Stop();
                 _ = SubmitExamAsync();
             }
         }
@@ -193,8 +198,8 @@ namespace ExamSystem.ViewModels
 
             try
             {
-                _autoSaveTimer?.Stop();
-                _countdownTimer?.Stop();
+                _autoSaveTimer.Stop();
+                _countdownTimer.Stop();
 
                 await _examService.SubmitExamAsync(ExamRecord!.Id);
                 await _dialogService.ShowMessageAsync("提交成功", "试卷已提交，等待评分。");
