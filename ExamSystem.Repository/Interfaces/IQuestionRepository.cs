@@ -46,5 +46,17 @@ namespace ExamSystem.Repository.Interfaces
         /// 批量获取题目及其选项
         /// </summary>
         Task<IEnumerable<Question>> GetManyWithOptionsAsync(IEnumerable<int> questionIds);
+
+        /// <summary>
+        /// 根据题库ID、题型和难度获取题目列表（用于随机组卷）
+        /// </summary>
+        /// <param name="bankId">题库ID</param>
+        /// <param name="questionType">题型（可选）</param>
+        /// <param name="difficulty">难度（可选）</param>
+        /// <returns>符合条件的题目集合</returns>
+        Task<IEnumerable<Question>> GetQuestionsByBankAndTypeAsync(
+            int bankId,
+            QuestionType? questionType = null,
+            Difficulty? difficulty = null);
     }
 }

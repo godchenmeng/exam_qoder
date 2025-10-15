@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace ExamSystem.UI.Services
+namespace ExamSystem.Abstractions.Services
 {
     /// <summary>
     /// 对话框服务接口
@@ -22,6 +22,11 @@ namespace ExamSystem.UI.Services
         /// 显示错误对话框
         /// </summary>
         Task ShowErrorAsync(string title, string error);
+
+        /// <summary>
+        /// 显示警告对话框
+        /// </summary>
+        Task ShowWarningAsync(string title, string warning);
 
         /// <summary>
         /// 显示输入对话框

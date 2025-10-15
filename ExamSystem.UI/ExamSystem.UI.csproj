@@ -26,6 +26,7 @@
     <ProjectReference Include="..\ExamSystem.ViewModels\ExamSystem.ViewModels.csproj" />
     <ProjectReference Include="..\ExamSystem.Services\ExamSystem.Services.csproj" />
     <ProjectReference Include="..\ExamSystem.Infrastructure\ExamSystem.Infrastructure.csproj" />
+    <ProjectReference Include="..\ExamSystem.Abstractions\ExamSystem.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

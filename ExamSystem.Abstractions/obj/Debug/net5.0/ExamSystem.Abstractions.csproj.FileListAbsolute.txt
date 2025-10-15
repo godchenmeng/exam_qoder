@@ -1,0 +1,12 @@
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/bin/Debug/net5.0/ExamSystem.Abstractions.deps.json
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/bin/Debug/net5.0/ExamSystem.Abstractions.dll
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/bin/Debug/net5.0/ref/ExamSystem.Abstractions.dll
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/bin/Debug/net5.0/ExamSystem.Abstractions.pdb
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/obj/Debug/net5.0/ExamSystem.Abstractions.csproj.AssemblyReference.cache
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/obj/Debug/net5.0/ExamSystem.Abstractions.GeneratedMSBuildEditorConfig.editorconfig
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/obj/Debug/net5.0/ExamSystem.Abstractions.AssemblyInfoInputs.cache
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/obj/Debug/net5.0/ExamSystem.Abstractions.AssemblyInfo.cs
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/obj/Debug/net5.0/ExamSystem.Abstractions.csproj.CoreCompileInputs.cache
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/obj/Debug/net5.0/ExamSystem.Abstractions.dll
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/obj/Debug/net5.0/ref/ExamSystem.Abstractions.dll
+/Users/chenmeng/c#/exam_qoder/ExamSystem.Abstractions/obj/Debug/net5.0/ExamSystem.Abstractions.pdb

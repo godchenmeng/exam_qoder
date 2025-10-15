@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using ExamSystem.Abstractions.Services;
 
 namespace ExamSystem.UI.Services
 {
@@ -11,6 +12,12 @@ namespace ExamSystem.UI.Services
         public void ShowSuccess(string message)
         {
             ShowNotification(message, "成功", MessageBoxImage.Information);
+        }
+
+        public void ShowSuccess(string message, int durationSeconds)
+        {
+            // 简单实现，忽略持续时间
+            ShowSuccess(message);
         }
 
         public void ShowWarning(string message)
