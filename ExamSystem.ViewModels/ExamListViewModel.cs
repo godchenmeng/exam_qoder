@@ -95,13 +95,13 @@ namespace ExamSystem.ViewModels
 
             var confirmed = await _dialogService.ShowConfirmAsync(
                 "开始考试", 
-                $"确定要开始考试 {examPaper.Title} 吗？\n考试时长：{examPaper.Duration}分钟");
+                $"确定要开始考试 {examPaper.Name} 吗？\n考试时长：{examPaper.Duration}分钟");
 
             if (!confirmed) return;
 
             try
             {
-                var examRecord = await _examService.StartExamAsync(examPaper.Id, 0); // TODO: 传入当前用户ID
+                var examRecord = await _examService.StartExamAsync(examPaper.PaperId, 0); // TODO: 传入当前用户ID
                 // _navigationService.NavigateTo<ExamTakingViewModel>(examRecord);
             }
             catch (System.Exception ex)

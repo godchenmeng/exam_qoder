@@ -62,7 +62,7 @@ namespace ExamSystem.Repository.Repositories
             var now = DateTime.Now;
             return await _context.ExamPapers
                 .Include(p => p.Creator)
-                .Where(p => p.Status == PaperStatus.Activated 
+                .Where(p => p.Status == PaperStatus.Active 
                     && (p.StartTime == null || p.StartTime <= now)
                     && (p.EndTime == null || p.EndTime >= now))
                 .OrderByDescending(p => p.CreatedAt)

@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExamSystem.Services\ExamSystem.Services.csproj" />
     <ProjectReference Include="..\ExamSystem.Abstractions\ExamSystem.Abstractions.csproj" />
+    <ProjectReference Include="..\ExamSystem.Services\ExamSystem.Services.csproj" />
   </ItemGroup>
 
 </Project>
