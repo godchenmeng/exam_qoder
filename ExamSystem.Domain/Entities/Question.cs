@@ -58,6 +58,8 @@ namespace ExamSystem.Domain.Entities
         /// </summary>
         public string Tags { get; set; }
 
+        public string Explanation { get; set; }
+
         /// <summary>
         /// 创建时间
         /// </summary>

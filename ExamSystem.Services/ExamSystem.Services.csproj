@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\ExamSystem.Domain\ExamSystem.Domain.csproj" />
     <ProjectReference Include="..\ExamSystem.Repository\ExamSystem.Repository.csproj" />
-    <ProjectReference Include="..\ExamSystem.Infrastructure\ExamSystem.Infrastructure.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

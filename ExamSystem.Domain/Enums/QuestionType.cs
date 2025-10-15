@@ -28,6 +28,10 @@ namespace ExamSystem.Domain.Enums
         /// <summary>
         /// 主观题
         /// </summary>
-        Subjective = 5
+        Subjective = 5,
+
+        ShortAnswer = 6,
+
+        Essay = 7
     }
 }

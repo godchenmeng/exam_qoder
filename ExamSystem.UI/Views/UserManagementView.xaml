@@ -32,38 +32,32 @@
 
                 <!-- 新增用户按钮 -->
                 <Button Grid.Column="0"
-                        Content="新增用户"
                         Style="{StaticResource PrimaryButton}"
                         Margin="0,0,10,0">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="AccountPlus" 
-                                                   Width="20" 
-                                                   Height="20"
-                                                   VerticalAlignment="Center"/>
-                            <TextBlock Text="新增用户" 
-                                      Margin="8,0,0,0"
-                                      VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="AccountPlus" 
+                                               Width="20" 
+                                               Height="20"
+                                               VerticalAlignment="Center"/>
+                        <TextBlock Text="新增用户" 
+                                  Margin="8,0,0,0"
+                                  VerticalAlignment="Center"/>
+                    </StackPanel>
                 </Button>
 
                 <!-- 批量导入按钮 -->
                 <Button Grid.Column="1"
-                        Content="批量导入"
                         Style="{StaticResource SecondaryButton}"
                         Margin="0,0,10,0">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="FileImport" 
-                                                   Width="20" 
-                                                   Height="20"
-                                                   VerticalAlignment="Center"/>
-                            <TextBlock Text="批量导入" 
-                                      Margin="8,0,0,0"
-                                      VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileImport" 
+                                               Width="20" 
+                                               Height="20"
+                                               VerticalAlignment="Center"/>
+                        <TextBlock Text="批量导入" 
+                                  Margin="8,0,0,0"
+                                  VerticalAlignment="Center"/>
+                    </StackPanel>
                 </Button>
 
                 <!-- 搜索框 -->

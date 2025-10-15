@@ -45,7 +45,7 @@ namespace ExamSystem.Services.Implementations
             if (paper == null)
                 throw new InvalidOperationException("试卷不存在");
 
-            if (paper.Status != PaperStatus.Activated)
+            if (paper.Status != PaperStatus.Active)
                 throw new InvalidOperationException("试卷未激活，无法开始考试");
 
             // 检查试卷时间范围

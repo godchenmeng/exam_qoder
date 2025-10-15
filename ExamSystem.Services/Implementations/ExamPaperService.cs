@@ -47,7 +47,9 @@ namespace ExamSystem.Services.Implementations
             // 验证试卷
             var validation = ValidatePaper(paper);
             if (!validation.IsValid)
-                throw new InvalidOperationException($"试卷验证失败: {validation.ErrorMessage}");
+                // 将所有 validation.ErrorMessage 替换为 string.Join(", ", validation.Errors)
+                if (!validation.IsValid)
+                    throw new InvalidOperationException($"试卷验证失败: {string.Join(", ", validation.Errors)}");
 
             // 设置试卷类型和状态
             paper.PaperType = PaperType.Fixed;
@@ -86,7 +88,7 @@ namespace ExamSystem.Services.Implementations
             // 验证试卷
             var validation = ValidatePaper(paper);
             if (!validation.IsValid)
-                throw new InvalidOperationException($"试卷验证失败: {validation.ErrorMessage}");
+                throw new InvalidOperationException($"试卷验证失败: {string.Join(", ", validation.Errors)}");
 
             // 根据规则抽取题目
             var selectedQuestions = await SelectQuestionsAsync(config);
@@ -127,7 +129,7 @@ namespace ExamSystem.Services.Implementations
             // 验证试卷
             var validation = ValidatePaper(paper);
             if (!validation.IsValid)
-                throw new InvalidOperationException($"试卷验证失败: {validation.ErrorMessage}");
+                throw new InvalidOperationException($"试卷验证失败: {string.Join(", ", validation.Errors)}");
 
             var allQuestions = new List<PaperQuestion>();
             int orderIndex = 1;
@@ -217,7 +219,7 @@ namespace ExamSystem.Services.Implementations
 
             var validation = ValidatePaper(paper);
             if (!validation.IsValid)
-                throw new InvalidOperationException($"试卷验证失败: {validation.ErrorMessage}");
+                throw new InvalidOperationException($"试卷验证失败: {string.Join(", ", validation.Errors)}");
 
             paper.UpdatedAt = DateTime.Now;
             await _paperRepository.UpdateAsync(paper);
@@ -255,7 +257,7 @@ namespace ExamSystem.Services.Implementations
             if (paper == null)
                 throw new InvalidOperationException("试卷不存在");
 
-            paper.Status = PaperStatus.Activated;
+            paper.Status = PaperStatus.Active;
             paper.UpdatedAt = DateTime.Now;
             await _paperRepository.UpdateAsync(paper);
             await _paperRepository.SaveChangesAsync();
@@ -335,19 +337,33 @@ namespace ExamSystem.Services.Implementations
         /// </summary>
         public ValidationResult ValidatePaper(ExamPaper paper)
         {
+            var result = new ValidationResult { IsValid = true, Errors = new List<string>() };
+
             if (string.IsNullOrWhiteSpace(paper.Name))
-                return new ValidationResult { IsValid = false, ErrorMessage = "试卷名称不能为空" };
+            {
+                result.IsValid = false;
+                result.AddError("试卷名称不能为空");
+            }
 
             if (paper.Duration <= 0)
-                return new ValidationResult { IsValid = false, ErrorMessage = "考试时长必须大于0" };
+            {
+                result.IsValid = false;
+                result.AddError("考试时长必须大于0");
+            }
 
             if (paper.PassScore < 0)
-                return new ValidationResult { IsValid = false, ErrorMessage = "及格分不能为负数" };
+            {
+                result.IsValid = false;
+                result.AddError("及格分不能为负数");
+            }
 
             if (paper.PassScore > paper.TotalScore && paper.TotalScore > 0)
-                return new ValidationResult { IsValid = false, ErrorMessage = "及格分不能大于总分" };
+            {
+                result.IsValid = false;
+                result.AddError("及格分不能大于总分");
+            }
 
-            return new ValidationResult { IsValid = true };
+            return result;
         }
 
         /// <summary>

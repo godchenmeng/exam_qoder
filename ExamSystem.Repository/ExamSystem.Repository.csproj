@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExamSystem.Domain\ExamSystem.Domain.csproj" />
+    <ProjectReference Include="..\ExamSystem.Infrastructure\ExamSystem.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

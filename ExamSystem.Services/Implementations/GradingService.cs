@@ -225,14 +225,14 @@ namespace ExamSystem.Services.Implementations
         private void GradeMultipleChoice(AnswerRecord answer, Question question, decimal score)
         {
             var result = AnswerComparer.CompareMultipleChoice(answer.UserAnswer, question.Answer);
-            
-            if (result == 1.0m)
+
+            if (result.IsFullyCorrect)
             {
                 // 完全正确
                 answer.Score = score;
                 answer.IsCorrect = true;
             }
-            else if (result > 0)
+            else if (result.IsPartiallyCorrect)
             {
                 // 部分正确
                 answer.Score = score * 0.5m;
