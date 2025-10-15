@@ -19,3 +19,6 @@
 /ExamSystem.ViewModels/bin
 /ExamSystem.Tests
 /ExamSystem.Tests
+/ExamSystem.Abstractions/bin/Debug/net5.0
+/ExamSystem.Abstractions/obj/Debug/net5.0
+/ExamSystem.Abstractions/obj

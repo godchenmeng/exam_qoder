@@ -10,7 +10,6 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
-    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
@@ -19,14 +18,13 @@
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
-    <PackageReference Include="System.Windows.Forms" Version="4.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExamSystem.ViewModels\ExamSystem.ViewModels.csproj" />
     <ProjectReference Include="..\ExamSystem.Services\ExamSystem.Services.csproj" />
     <ProjectReference Include="..\ExamSystem.Infrastructure\ExamSystem.Infrastructure.csproj" />
-    <ProjectReference Include="..\ExamSystem.Abstractions\ExamSystem.Abstractions.csproj" />
+    <ProjectReference Include="..\ExamSystem.ViewModels\ExamSystem.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
