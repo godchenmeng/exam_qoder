@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ExamSystem.Domain.Entities;
+using ExamSystem.Domain.DTOs;
 
 namespace ExamSystem.Services.Interfaces
 {
@@ -54,6 +55,27 @@ namespace ExamSystem.Services.Interfaces
         /// 记录异常行为
         /// </summary>
         Task RecordAbnormalBehaviorAsync(int recordId, string behavior);
+        
+        // 新增的方法
+        /// <summary>
+        /// 获取用户即将开始的考试
+        /// </summary>
+        Task<IEnumerable<ExamPaper>> GetUpcomingExamsAsync(int userId);
+
+        /// <summary>
+        /// 获取用户正在进行的考试
+        /// </summary>
+        Task<IEnumerable<ExamRecord>> GetOngoingExamsAsync(int userId);
+
+        /// <summary>
+        /// 获取用户已完成的考试
+        /// </summary>
+        Task<IEnumerable<ExamRecord>> GetCompletedExamsAsync(int userId);
+
+        /// <summary>
+        /// 获取考试记录的答题详情
+        /// </summary>
+        Task<IEnumerable<AnswerRecord>> GetAnswerRecordsAsync(int recordId);
     }
 
     /// <summary>

@@ -65,6 +65,12 @@ namespace ExamSystem.Services.Interfaces
         /// 检查用户名是否存在
         /// </summary>
         Task<bool> UsernameExistsAsync(string username);
+        
+        // 新增的方法
+        /// <summary>
+        /// 分页获取用户列表
+        /// </summary>
+        Task<PagedResult<User>> GetUsersAsync(int pageIndex, int pageSize);
     }
 
     /// <summary>

@@ -34,6 +34,17 @@ namespace ExamSystem.Services.Interfaces
         /// 获取错题统计
         /// </summary>
         Task<List<WrongQuestion>> GetWrongQuestionsAsync(int userId);
+        
+        // 新增的方法
+        /// <summary>
+        /// 获取系统统计数据
+        /// </summary>
+        Task<SystemStatistics> GetSystemStatisticsAsync();
+
+        /// <summary>
+        /// 获取考试统计数据
+        /// </summary>
+        Task<ExamStatistics> GetExamStatisticsAsync();
     }
 
     /// <summary>

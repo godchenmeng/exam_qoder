@@ -71,5 +71,11 @@ namespace ExamSystem.Services.Interfaces
         /// 获取题目及其选项
         /// </summary>
         Task<Question> GetQuestionWithOptionsAsync(int questionId);
+        
+        // 新增的方法
+        /// <summary>
+        /// 获取所有题库列表
+        /// </summary>
+        Task<IEnumerable<QuestionBank>> GetAllQuestionBanksAsync();
     }
 }
