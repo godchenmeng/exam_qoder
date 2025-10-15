@@ -125,9 +125,12 @@ namespace ExamSystem.UI
             
             // 确保数据库创建
             dbContext.Database.EnsureCreated();
-            
+
             // 初始化种子数据
-            DbInitializer.Initialize(dbContext);
+            using var _ =
+
+            // 初始化种子数据
+            DbInitializer.InitializeAsync(dbContext);
             
             Log.Information("数据库初始化完成");
         }

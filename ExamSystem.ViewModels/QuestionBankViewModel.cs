@@ -135,7 +135,7 @@ namespace ExamSystem.ViewModels
             IsLoading = true;
             try
             {
-                var questions = await _questionService.GetQuestionsByBankIdAsync(SelectedBank.Id);
+                var questions = await _questionService.GetQuestionsByBankIdAsync(SelectedBank.BankId);
                 
                 // 应用筛选
                 var filtered = questions.AsEnumerable();
@@ -173,7 +173,7 @@ namespace ExamSystem.ViewModels
 
             try
             {
-                await _questionService.DeleteQuestionAsync(SelectedQuestion.Id);
+                await _questionService.DeleteQuestionAsync(SelectedQuestion.BankId);
                 _notificationService.ShowSuccess("题目删除成功");
                 await LoadQuestionsAsync();
             }

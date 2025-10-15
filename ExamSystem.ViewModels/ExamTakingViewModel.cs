@@ -128,12 +128,12 @@ namespace ExamSystem.ViewModels
             {
                 if (ExamRecord?.ExamPaper == null) return;
 
-                var questions = await _examPaperService.GetExamQuestionsAsync(ExamRecord.ExamPaperId);
+                var questions = await _examPaperService.GetExamQuestionsAsync(ExamRecord.PaperId);
                 Questions = new ObservableCollection<Question>(questions);
                 
                 // 加载已保存的答案
-                var savedAnswers = await _answerRecordRepository.GetByExamRecordAsync(ExamRecord.Id);
-                Answers = savedAnswers.ToDictionary(a => a.QuestionId, a => a.Answer);
+                var savedAnswers = await _answerRecordRepository.GetByExamRecordAsync(ExamRecord.RecordId);
+                Answers = savedAnswers.ToDictionary(a => a.QuestionId, a => a.UserAnswer);
             }
             catch (Exception ex)
             {
@@ -201,7 +201,7 @@ namespace ExamSystem.ViewModels
                 _autoSaveTimer.Stop();
                 _countdownTimer.Stop();
 
-                await _examService.SubmitExamAsync(ExamRecord!.Id);
+                await _examService.SubmitExamAsync(ExamRecord!.RecordId);
                 await _dialogService.ShowMessageAsync("提交成功", "试卷已提交，等待评分。");
                 _navigationService.GoBack();
             }

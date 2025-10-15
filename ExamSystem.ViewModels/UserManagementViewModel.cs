@@ -147,7 +147,7 @@ namespace ExamSystem.ViewModels
 
             try
             {
-                await _userService.DeleteUserAsync(SelectedUser.Id);
+                await _userService.DeleteUserAsync(SelectedUser.UserId);
                 _notificationService.ShowSuccess("用户删除成功");
                 await LoadUsersAsync();
             }
