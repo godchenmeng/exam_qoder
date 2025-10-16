@@ -55,7 +55,7 @@ namespace ExamSystem.Services.Implementations
                 };
             }
 
-            var gradedRecords = recordsList.Where(r => r.Status == ExamStatus.Graded && r.TotalScore.HasValue).ToList();
+            var gradedRecords = recordsList.Where(r => r.Status == ExamStatus.Graded && r.TotalScore > 0).ToList();
 
             var statistics = new PaperStatistics
             {
@@ -68,7 +68,7 @@ namespace ExamSystem.Services.Implementations
 
             if (gradedRecords.Any())
             {
-                var scores = gradedRecords.Select(r => r.TotalScore.Value).ToList();
+                var scores = gradedRecords.Select(r => r.TotalScore).ToList();
                 var passScore = recordsList.First().ExamPaper?.PassScore ?? 60;
 
                 statistics.PassedCount = gradedRecords.Count(r => r.IsPassed == true);
@@ -104,7 +104,7 @@ namespace ExamSystem.Services.Implementations
         public async Task<StudentScoreStatistics> GetStudentScoreStatisticsAsync(int userId)
         {
             var records = await _examRecordRepository.GetByUserIdAsync(userId);
-            var gradedRecords = records.Where(r => r.Status == ExamStatus.Graded && r.TotalScore.HasValue).ToList();
+            var gradedRecords = records.Where(r => r.Status == ExamStatus.Graded && r.TotalScore > 0).ToList();
 
             var statistics = new StudentScoreStatistics
             {
@@ -116,7 +116,7 @@ namespace ExamSystem.Services.Implementations
 
             if (gradedRecords.Any())
             {
-                var scores = gradedRecords.Select(r => r.TotalScore.Value).ToList();
+                var scores = gradedRecords.Select(r => r.TotalScore).ToList();
                 statistics.AverageScore = scores.Average();
                 statistics.HighestScore = scores.Max();
                 statistics.LowestScore = scores.Min();
@@ -161,15 +161,15 @@ namespace ExamSystem.Services.Implementations
             {
                 analysis.CorrectRate = (decimal)analysis.CorrectAnswers / analysis.TotalAnswers * 100;
                 
-                var scoredAnswers = allAnswers.Where(a => a.Score.HasValue).ToList();
+                var scoredAnswers = allAnswers.Where(a => a.Score > 0).ToList();
                 if (scoredAnswers.Any())
                 {
-                    analysis.AverageScore = scoredAnswers.Average(a => a.Score.Value);
+                    analysis.AverageScore = scoredAnswers.Average(a => a.Score);
                     analysis.ScoreRate = analysis.AverageScore / analysis.FullScore * 100;
                 }
 
                 // 计算区分度（高分组正确率 - 低分组正确率）
-                var totalRecords = examRecords.Where(r => r.TotalScore.HasValue).OrderByDescending(r => r.TotalScore).ToList();
+                var totalRecords = examRecords.Where(r => r.TotalScore > 0).OrderByDescending(r => r.TotalScore).ToList();
                 if (totalRecords.Count >= 10)
                 {
                     var topCount = Math.Max(1, totalRecords.Count / 3);
@@ -200,7 +200,7 @@ namespace ExamSystem.Services.Implementations
         {
             var records = await _examRecordRepository.GetByPaperIdAsync(paperId);
             var gradedRecords = records
-                .Where(r => r.Status == ExamStatus.Graded && r.TotalScore.HasValue)
+                .Where(r => r.Status == ExamStatus.Graded && r.TotalScore > 0)
                 .OrderByDescending(r => r.TotalScore)
                 .ToList();
 
@@ -215,7 +215,7 @@ namespace ExamSystem.Services.Implementations
                     UserId = record.UserId,
                     Username = record.User?.Username ?? "未知",
                     RealName = record.User?.RealName ?? "未知",
-                    TotalScore = record.TotalScore.Value,
+                    TotalScore = record.TotalScore,
                     IsPassed = record.IsPassed ?? false
                 });
             }

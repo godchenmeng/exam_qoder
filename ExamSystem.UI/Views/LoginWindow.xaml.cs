@@ -31,6 +31,11 @@ namespace ExamSystem.UI.Views
                     // 登录成功，打开主窗口
                     var app = (App)Application.Current;
                     var mainWindow = new MainWindow();
+                    // 将登录结果传递给主窗口的 ViewModel
+                    if (mainWindow.DataContext is MainViewModel mainVm)
+                    {
+                        mainVm.Initialize(_viewModel.LoginResult);
+                    }
                     mainWindow.Show();
                     this.Close();
                 }

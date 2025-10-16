@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <ImplicitUsings>false</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../ExamSystem.Repository/ExamSystem.Repository.csproj" />
+    <ProjectReference Include="../ExamSystem.Infrastructure/ExamSystem.Infrastructure.csproj" />
+    <ProjectReference Include="../ExamSystem.Domain/ExamSystem.Domain.csproj" />
+  </ItemGroup>
+</Project>

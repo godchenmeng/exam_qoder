@@ -40,12 +40,12 @@ namespace ExamSystem.Domain.Entities
         /// <summary>
         /// 得分
         /// </summary>
-        public decimal? Score { get; set; }
+        public double Score { get; set; }
 
         /// <summary>
         /// 是否正确
         /// </summary>
-        public bool? IsCorrect { get; set; }
+        public bool IsCorrect { get; set; }
 
         /// <summary>
         /// 是否已评分

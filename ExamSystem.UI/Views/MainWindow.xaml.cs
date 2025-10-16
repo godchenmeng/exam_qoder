@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using ExamSystem.Domain.Enums;
+using ExamSystem.Abstractions.Services;
 using ExamSystem.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using MaterialDesignThemes.Wpf;
@@ -10,6 +11,7 @@ namespace ExamSystem.UI.Views
     public partial class MainWindow : Window
     {
         private readonly MainViewModel _viewModel;
+        private readonly INavigationService _navigationService;
 
         public MainWindow()
         {
@@ -17,11 +19,28 @@ namespace ExamSystem.UI.Views
             
             var app = (App)Application.Current;
             _viewModel = app.ServiceProvider.GetRequiredService<MainViewModel>();
+            _navigationService = app.ServiceProvider.GetRequiredService<INavigationService>();
             DataContext = _viewModel;
 
             // 初始化用户信息（从登录窗口传递）
             // TODO: 从服务中获取当前用户信息
 
+            // 订阅用户信息变化，确保登录后菜单能正确加载
+            _viewModel.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(MainViewModel.CurrentUser))
+                {
+                    LoadNavigationMenu();
+                }
+            };
+
+            // 订阅导航服务的当前视图模型变化，使右侧内容区域随导航更新
+            _navigationService.CurrentViewModelChanged += (sender, currentVm) =>
+            {
+                _viewModel.CurrentViewModel = currentVm!;
+            };
+
+            // 初次加载时，如果尚未有用户则菜单为空；登录后会触发加载
             LoadNavigationMenu();
         }
 

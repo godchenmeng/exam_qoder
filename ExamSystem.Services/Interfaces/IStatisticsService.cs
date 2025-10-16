@@ -52,9 +52,9 @@ namespace ExamSystem.Services.Interfaces
         public string Username { get; set; }
         public int TotalExams { get; set; }
         public int PassedExams { get; set; }
-        public decimal AverageScore { get; set; }
-        public decimal HighestScore { get; set; }
-        public decimal LowestScore { get; set; }
+        public double AverageScore { get; set; }
+        public double HighestScore { get; set; }
+        public double LowestScore { get; set; }
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ namespace ExamSystem.Services.Interfaces
         public int UserId { get; set; }
         public string Username { get; set; }
         public string RealName { get; set; }
-        public decimal TotalScore { get; set; }
+        public double TotalScore { get; set; }
         public bool IsPassed { get; set; }
     }
 

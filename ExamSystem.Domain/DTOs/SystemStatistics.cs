@@ -21,6 +21,8 @@ namespace ExamSystem.Domain.DTOs
         /// </summary>
         public int TotalQuestionBanks { get; set; }
 
+        public int TotalQuestions { get; set; }
+
         /// <summary>
         /// 总试卷数
         /// </summary>

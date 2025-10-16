@@ -1,6 +1,5 @@
 using Microsoft.Win32;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using ExamSystem.Abstractions.Services;
 
 namespace ExamSystem.UI.Services
@@ -58,8 +57,9 @@ namespace ExamSystem.UI.Services
 
         public string? ShowFolderBrowserDialog()
         {
-            using var dialog = new FolderBrowserDialog();
-            return dialog.ShowDialog() == DialogResult.OK ? dialog.SelectedPath : null;
+            return null;
+            //using var dialog = new FolderBrowserDialog();
+            //return dialog.ShowDialog() == DialogResult.OK ? dialog.SelectedPath : null;
         }
     }
 }

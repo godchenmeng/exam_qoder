@@ -47,6 +47,6 @@ namespace ExamSystem.Domain.DTOs
         /// <summary>
         /// 每题分值
         /// </summary>
-        public decimal ScorePerQuestion { get; set; }
+        public double ScorePerQuestion { get; set; }
     }
 }

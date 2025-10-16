@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ExamSystem.Abstractions.Services;
 using ExamSystem.Domain.DTOs;
 using ExamSystem.Domain.Enums;
 
@@ -38,8 +39,11 @@ namespace ExamSystem.ViewModels
             set => SetProperty(ref _isMenuExpanded, value);
         }
 
-        public MainViewModel()
+        private readonly INavigationService _navigationService;
+
+        public MainViewModel(INavigationService navigationService)
         {
+            _navigationService = navigationService;
         }
 
         /// <summary>
@@ -49,6 +53,9 @@ namespace ExamSystem.ViewModels
         {
             CurrentUser = userLoginResult;
             Title = $"在线考试系统 - {CurrentUser.RealName} ({GetRoleName(CurrentUser.Role)})";
+
+            // 登录成功后默认导航到首页
+            _navigationService.NavigateTo<HomeViewModel>();
         }
 
         private IRelayCommand<string> _navigateCommand;
@@ -64,12 +71,31 @@ namespace ExamSystem.ViewModels
             switch (destination)
             {
                 case "Home":
-                    // CurrentViewModel = new HomeViewModel();
+                    _navigationService.NavigateTo<HomeViewModel>();
+                    break;
+                case "UserManagement":
+                    _navigationService.NavigateTo<UserManagementViewModel>();
                     break;
                 case "QuestionBank":
-                    // CurrentViewModel = new QuestionBankViewModel();
+                    _navigationService.NavigateTo<QuestionBankViewModel>();
                     break;
-                // 其他页面...
+                case "Settings":
+                    _navigationService.NavigateTo<SystemSettingsViewModel>();
+                    break;
+                case "ExamPaper":
+                    _navigationService.NavigateTo<ExamPaperViewModel>();
+                    break;
+                case "Statistics":
+                    _navigationService.NavigateTo<StatisticsViewModel>();
+                    break;
+                case "ExamList":
+                    _navigationService.NavigateTo<ExamListViewModel>();
+                    break;
+                case "Score":
+                    _navigationService.NavigateTo<ScoreViewModel>();
+                    break;
+                default:
+                    break;
             }
         }
 

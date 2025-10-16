@@ -84,6 +84,8 @@ namespace ExamSystem.UI
             services.AddScoped<IExamPaperRepository, ExamPaperRepository>();
             services.AddScoped<IExamRecordRepository, ExamRecordRepository>();
             services.AddScoped<IAnswerRecordRepository, AnswerRecordRepository>();
+            // 注册通用泛型仓储，满足 IQuestionService 对 IRepository<Option> 的依赖
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             // 注册Services
             services.AddScoped<IUserService, UserService>();
@@ -123,14 +125,8 @@ namespace ExamSystem.UI
             using var scope = ServiceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<ExamSystemDbContext>();
             
-            // 确保数据库创建
-            dbContext.Database.EnsureCreated();
-
-            // 初始化种子数据
-            using var _ =
-
-            // 初始化种子数据
-            DbInitializer.InitializeAsync(dbContext);
+            // 同步等待数据库初始化与种子数据完成，避免登录时序问题
+            DbInitializer.InitializeAsync(dbContext).GetAwaiter().GetResult();
             
             Log.Information("数据库初始化完成");
         }

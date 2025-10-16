@@ -33,17 +33,17 @@ namespace ExamSystem.Domain.DTOs
         /// <summary>
         /// 平均得分
         /// </summary>
-        public decimal AverageScore { get; set; }
+        public double AverageScore { get; set; }
 
         /// <summary>
         /// 题目满分
         /// </summary>
-        public decimal FullScore { get; set; }
+        public double FullScore { get; set; }
 
         /// <summary>
         /// 得分率
         /// </summary>
-        public decimal ScoreRate { get; set; }
+        public double ScoreRate { get; set; }
 
         /// <summary>
         /// 区分度（高分组正确率 - 低分组正确率）

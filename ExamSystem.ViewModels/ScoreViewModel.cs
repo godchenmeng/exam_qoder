@@ -96,13 +96,13 @@ namespace ExamSystem.ViewModels
                 if (ExamRecord == null) return;
 
                 // 加载答题记录
-                var answers = await _examService.GetAnswerRecordsAsync(ExamRecord.Id);
+                var answers = await _examService.GetAnswerRecordsAsync(ExamRecord.RecordId);
                 AnswerRecords = new ObservableCollection<AnswerRecord>(answers);
 
                 // 计算统计信息
                 TotalScore = ExamRecord.ExamPaper?.TotalScore ?? 0;
                 EarnedScore = ExamRecord.TotalScore;
-                IsPassed = EarnedScore >= (ExamRecord.ExamPaper?.PassingScore ?? 60);
+                IsPassed = EarnedScore >= (ExamRecord.ExamPaper?.TotalScore ?? 60);
                 
                 CorrectCount = 0;
                 WrongCount = 0;

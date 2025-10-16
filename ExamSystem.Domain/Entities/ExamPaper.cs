@@ -26,12 +26,12 @@ namespace ExamSystem.Domain.Entities
         /// <summary>
         /// 总分
         /// </summary>
-        public decimal TotalScore { get; set; }
+        public double TotalScore { get; set; }
 
         /// <summary>
         /// 及格分
         /// </summary>
-        public decimal PassScore { get; set; }
+        public double PassScore { get; set; }
 
         /// <summary>
         /// 考试时长(分钟)

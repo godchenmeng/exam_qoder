@@ -144,13 +144,13 @@
                                           Binding="{Binding Content}" 
                                           Width="*"/>
                         <DataGridTextColumn Header="题型" 
-                                          Binding="{Binding Type}" 
+                                          Binding="{Binding QuestionType}" 
                                           Width="100"/>
                         <DataGridTextColumn Header="难度" 
                                           Binding="{Binding Difficulty}" 
                                           Width="80"/>
                         <DataGridTextColumn Header="分值" 
-                                          Binding="{Binding Points}" 
+                                          Binding="{Binding DefaultScore}" 
                                           Width="60"/>
                         <DataGridTemplateColumn Header="操作" Width="150">
                             <DataGridTemplateColumn.CellTemplate>

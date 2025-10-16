@@ -13,7 +13,7 @@ namespace ExamSystem.Domain.DTOs
         /// <summary>
         /// 分数
         /// </summary>
-        public decimal Score { get; set; }
+        public double Score { get; set; }
 
         /// <summary>
         /// 评语

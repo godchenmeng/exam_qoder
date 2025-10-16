@@ -32,6 +32,7 @@ namespace ExamSystem.Domain.DTOs
         /// </summary>
         public int TotalPages => (TotalCount + PageSize - 1) / PageSize;
 
+
         public PagedResult()
         {
             Items = new List<T>();

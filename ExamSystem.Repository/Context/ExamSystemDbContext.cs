@@ -189,7 +189,7 @@ namespace ExamSystem.Repository.Context
                 {
                     UserId = 1,
                     Username = "admin",
-                    PasswordHash = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", // admin123的SHA256哈希
+                    PasswordHash = "JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=", // admin123 的 SHA256 哈希
                     RealName = "系统管理员",
                     Role = UserRole.Admin,
                     IsActive = true,

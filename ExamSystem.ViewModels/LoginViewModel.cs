@@ -51,7 +51,12 @@ namespace ExamSystem.ViewModels
         /// <summary>
         /// 登录结果
         /// </summary>
-        public UserLoginResult LoginResult { get; private set; }
+        private UserLoginResult _loginResult;
+        public UserLoginResult LoginResult
+        {
+            get => _loginResult;
+            private set => SetProperty(ref _loginResult, value);
+        }
 
         public LoginViewModel(IUserService userService)
         {

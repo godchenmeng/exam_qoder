@@ -39,7 +39,7 @@ namespace ExamSystem.Services.Implementations
         public async Task AutoGradeObjectiveQuestionsAsync(int recordId)
         {
             var answerRecords = await _answerRecordRepository.GetByExamRecordAsync(recordId);
-            decimal objectiveScore = 0;
+            double objectiveScore = 0;
 
             foreach (var answer in answerRecords)
             {
@@ -78,8 +78,8 @@ namespace ExamSystem.Services.Implementations
                 answer.IsGraded = true;
                 await _answerRecordRepository.UpdateAsync(answer);
 
-                if (answer.Score.HasValue)
-                    objectiveScore += answer.Score.Value;
+                if (answer.Score > 0)
+                    objectiveScore += answer.Score;
             }
 
             await _answerRecordRepository.SaveChangesAsync();
@@ -94,7 +94,7 @@ namespace ExamSystem.Services.Implementations
         /// <summary>
         /// 人工评分主观题
         /// </summary>
-        public async Task ManualGradeSubjectiveQuestionAsync(int answerRecordId, decimal score, string comment, int graderId)
+        public async Task ManualGradeSubjectiveQuestionAsync(int answerRecordId, double score, string comment, int graderId)
         {
             var answer = await _answerRecordRepository.GetByIdAsync(answerRecordId);
             if (answer == null)
@@ -149,8 +149,8 @@ namespace ExamSystem.Services.Implementations
             var answerRecords = await _answerRecordRepository.GetByExamRecordAsync(recordId);
             foreach (var answer in answerRecords)
             {
-                answer.Score = null;
-                answer.IsCorrect = null;
+                answer.Score = 0;
+                answer.IsCorrect = false;
                 answer.IsGraded = false;
                 await _answerRecordRepository.UpdateAsync(answer);
             }
@@ -161,8 +161,8 @@ namespace ExamSystem.Services.Implementations
 
             // 重置考试记录状态
             var examRecord = await _examRecordRepository.GetByIdAsync(recordId);
-            examRecord.SubjectiveScore = null;
-            examRecord.TotalScore = null;
+            examRecord.SubjectiveScore = 0;
+            examRecord.TotalScore = 0;
             examRecord.IsPassed = null;
             await _examRecordRepository.UpdateAsync(examRecord);
             await _examRecordRepository.SaveChangesAsync();
@@ -189,14 +189,14 @@ namespace ExamSystem.Services.Implementations
                 .Where(a => a.Question.QuestionType != QuestionType.ShortAnswer 
                     && a.Question.QuestionType != QuestionType.Essay 
                     && a.IsGraded)
-                .Sum(a => a.Score ?? 0);
+                .Sum(a => a.Score);
 
             // 计算主观题得分
             var subjectiveScore = answerRecords
                 .Where(a => (a.Question.QuestionType == QuestionType.ShortAnswer 
                     || a.Question.QuestionType == QuestionType.Essay) 
                     && a.IsGraded)
-                .Sum(a => a.Score ?? 0);
+                .Sum(a => a.Score);
 
             // 更新考试记录
             examRecord.ObjectiveScore = objectiveScore;
@@ -212,7 +212,7 @@ namespace ExamSystem.Services.Implementations
         /// <summary>
         /// 单选题评分
         /// </summary>
-        private void GradeSingleChoice(AnswerRecord answer, Question question, decimal score)
+        private void GradeSingleChoice(AnswerRecord answer, Question question, double score)
         {
             var isCorrect = AnswerComparer.ExactMatch(answer.UserAnswer, question.Answer);
             answer.Score = isCorrect ? score : 0;
@@ -222,7 +222,7 @@ namespace ExamSystem.Services.Implementations
         /// <summary>
         /// 多选题评分
         /// </summary>
-        private void GradeMultipleChoice(AnswerRecord answer, Question question, decimal score)
+        private void GradeMultipleChoice(AnswerRecord answer, Question question, double score)
         {
             var result = AnswerComparer.CompareMultipleChoice(answer.UserAnswer, question.Answer);
 
@@ -235,7 +235,7 @@ namespace ExamSystem.Services.Implementations
             else if (result.IsPartiallyCorrect)
             {
                 // 部分正确
-                answer.Score = score * 0.5m;
+                answer.Score = score * 0.5;
                 answer.IsCorrect = false;
             }
             else
@@ -249,7 +249,7 @@ namespace ExamSystem.Services.Implementations
         /// <summary>
         /// 判断题评分
         /// </summary>
-        private void GradeTrueFalse(AnswerRecord answer, Question question, decimal score)
+        private void GradeTrueFalse(AnswerRecord answer, Question question, double score)
         {
             var isCorrect = AnswerComparer.ExactMatch(answer.UserAnswer, question.Answer);
             answer.Score = isCorrect ? score : 0;
@@ -259,7 +259,7 @@ namespace ExamSystem.Services.Implementations
         /// <summary>
         /// 填空题评分
         /// </summary>
-        private void GradeFillBlank(AnswerRecord answer, Question question, decimal score)
+        private void GradeFillBlank(AnswerRecord answer, Question question, double score)
         {
             // 使用模糊匹配
             var isCorrect = AnswerComparer.FuzzyMatch(answer.UserAnswer, question.Answer);

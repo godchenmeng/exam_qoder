@@ -46,7 +46,8 @@ namespace ExamSystem.Repository.Context
         private static async Task SeedDataAsync(ExamSystemDbContext context)
         {
             // 1. 创建默认管理员账户
-            if (!await context.Users.AnyAsync(u => u.Username == "admin"))
+            var admin = await context.Users.FirstOrDefaultAsync(u => u.Username == "admin");
+            if (admin == null)
             {
                 var adminUser = new User
                 {
@@ -59,6 +60,22 @@ namespace ExamSystem.Repository.Context
                 };
                 context.Users.Add(adminUser);
                 await context.SaveChangesAsync();
+            }
+            else
+            {
+                // 如发现历史不一致的默认哈希(例如 admin 或 123456)，修正为文档一致的 admin123
+                var expectedAdminHash = PasswordHelper.HashPassword("admin123");
+                var legacyHashes = new[]
+                {
+                    PasswordHelper.HashPassword("123456"),
+                    PasswordHelper.HashPassword("admin")
+                };
+                if (legacyHashes.Contains(admin.PasswordHash) && admin.IsActive)
+                {
+                    admin.PasswordHash = expectedAdminHash;
+                    context.Users.Update(admin);
+                    await context.SaveChangesAsync();
+                }
             }
 
             // 2. 创建示例教师账户

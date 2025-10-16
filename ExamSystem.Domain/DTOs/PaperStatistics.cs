@@ -45,17 +45,17 @@ namespace ExamSystem.Domain.DTOs
         /// <summary>
         /// 平均分
         /// </summary>
-        public decimal AverageScore { get; set; }
+        public double AverageScore { get; set; }
 
         /// <summary>
         /// 最高分
         /// </summary>
-        public decimal HighestScore { get; set; }
+        public double HighestScore { get; set; }
 
         /// <summary>
         /// 最低分
         /// </summary>
-        public decimal LowestScore { get; set; }
+        public double LowestScore { get; set; }
 
         /// <summary>
         /// 分数段分布（0-60, 60-70, 70-80, 80-90, 90-100）

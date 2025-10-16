@@ -38,6 +38,6 @@ namespace ExamSystem.Domain.Entities
         /// <summary>
         /// 该题分值
         /// </summary>
-        public decimal Score { get; set; }
+        public double Score { get; set; }
     }
 }

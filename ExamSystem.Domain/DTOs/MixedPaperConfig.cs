@@ -15,7 +15,7 @@ namespace ExamSystem.Domain.DTOs
         /// <summary>
         /// 固定题目分值字典（题目ID -> 分值）
         /// </summary>
-        public Dictionary<int, decimal> FixedQuestionScores { get; set; }
+        public Dictionary<int, double> FixedQuestionScores { get; set; }
 
         /// <summary>
         /// 随机组卷配置
@@ -25,7 +25,7 @@ namespace ExamSystem.Domain.DTOs
         public MixedPaperConfig()
         {
             FixedQuestionIds = new List<int>();
-            FixedQuestionScores = new Dictionary<int, decimal>();
+            FixedQuestionScores = new Dictionary<int, double>();
         }
     }
 }

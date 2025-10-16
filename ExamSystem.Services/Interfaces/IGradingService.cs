@@ -18,7 +18,7 @@ namespace ExamSystem.Services.Interfaces
         /// <summary>
         /// 人工评分主观题
         /// </summary>
-        Task ManualGradeSubjectiveQuestionAsync(int answerRecordId, decimal score, string comment, int graderId);
+        Task ManualGradeSubjectiveQuestionAsync(int answerRecordId, double score, string comment, int graderId);
 
         /// <summary>
         /// 批量评分

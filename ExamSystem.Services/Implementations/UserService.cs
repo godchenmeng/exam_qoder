@@ -8,6 +8,7 @@ using ExamSystem.Repository.Interfaces;
 using ExamSystem.Infrastructure.Utils;
 using ExamSystem.Infrastructure.Common;
 using ExamSystem.Services.Interfaces;
+using System.Linq;
 
 namespace ExamSystem.Services.Implementations
 {
@@ -261,8 +262,8 @@ namespace ExamSystem.Services.Implementations
                 Items = items,
                 PageIndex = pageIndex,
                 PageSize = pageSize,
-                TotalCount = totalCount,
-                TotalPages = totalPages
+                TotalCount = totalCount
+                // TotalPages 属性为只读，不能直接赋值
             };
         }
     }

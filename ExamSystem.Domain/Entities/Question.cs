@@ -46,7 +46,7 @@ namespace ExamSystem.Domain.Entities
         /// <summary>
         /// 默认分值
         /// </summary>
-        public decimal DefaultScore { get; set; }
+        public double DefaultScore { get; set; }
 
         /// <summary>
         /// 难度

@@ -56,17 +56,17 @@ namespace ExamSystem.Domain.Entities
         /// <summary>
         /// 总得分
         /// </summary>
-        public decimal? TotalScore { get; set; }
+        public double TotalScore { get; set; }
 
         /// <summary>
         /// 客观题得分
         /// </summary>
-        public decimal? ObjectiveScore { get; set; }
+        public double ObjectiveScore { get; set; }
 
         /// <summary>
         /// 主观题得分
         /// </summary>
-        public decimal? SubjectiveScore { get; set; }
+        public double SubjectiveScore { get; set; }
 
         /// <summary>
         /// 是否通过
